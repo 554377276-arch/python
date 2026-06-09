@@ -1,0 +1,111 @@
+class Student:
+    def __init__(self, name, score):
+        self.name = name
+        self.score = score
+
+    def update_score(self, new_score):
+        self.score = new_score
+
+    def __str__(self):
+        return f"姓名:{self.name}, 成绩:{self.score}"
+#添加学生
+class StudentManager:
+    def __init__(self):
+        self.student_list = []
+    def add(self):
+        name = input("请输入学生姓名")
+        for s in self.student_list:
+            if s.name == name:
+
+                print("该学生已存在")
+                return
+        else:
+            score  = int(input("请输入成绩"))
+
+            if 0 <= score <= 100  :
+                stu = Student(name,score)
+                self.student_list.append(stu)
+                print("学生信息添加成功")
+            else:
+                print("学生成绩必须在0-100之间")
+#查看学生
+
+    def query_student(self):
+        name = input("请输入学生姓名")
+        for s in self.student_list:
+            if s.name == name:
+                print(f"学生信息:{s}")
+                return
+
+        print("没有该学生")
+ #修改成绩
+    def update_student(self):
+        name = input("请输入修改的学生姓名")
+        for s in self.student_list:
+            if s.name == name:
+                print(f"当前成绩:{s}")
+                score = int(input("请输入修改后的成绩"))
+                if 0 <= score <= 100:
+                    s.update_score(score)
+                    print("修改成功")
+                    print(f"修改后成绩:{s}")
+                    return
+                else:
+                    print("成绩必须在0-100之间")
+                    return
+        print("没有该学生")
+#删除学生
+    def delete_student(self):
+
+        name = input("请输入删除的学生姓名")
+
+        for s in self.student_list:
+
+            if s.name == name:
+                self.student_list.remove(s)
+
+                print("删除成功")
+
+                return
+
+        print("没有该学生")
+#退出
+    def show_all(self):
+
+        if len(self.student_list) == 0:
+            print("暂无学生")
+            return
+
+        for s in self.student_list:
+            print(s)
+#运行程序
+
+manager = StudentManager()
+
+while True:
+
+    print("1.添加学生")
+    print("2.查询学生")
+    print("3.修改成绩")
+    print("4.查看所有学生")
+    print("5.退出")
+
+    choice = input("请选择:")
+
+    if choice == "1":
+        manager.add()
+
+    elif choice == "2":
+        manager.query_student()
+
+    elif choice == "3":
+        manager.update_student()
+    elif choice == "4":
+        manager.show_all()
+
+    elif choice == "5":
+        print("退出系统")
+        break
+
+    else:
+        print("输入错误")
